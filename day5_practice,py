@@ -110,7 +110,7 @@ print(numbers)
 
 print(f"偶数的个数有{even_num}")
 
-git --version
+
 
 
 
