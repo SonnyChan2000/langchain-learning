@@ -1,0 +1,31 @@
+students = {}
+
+def add_student(name, score):
+    global students
+    students[name] = score
+
+def remove_student(name):
+    global students
+    if name in students:
+        del students[name]
+    else:
+        print("无该学生")
+
+def get_average():
+    total_score = 0
+    for name in students:
+        total_score += students[name]
+    return total_score / len(students)
+
+def show_all():
+    print(sorted(students.items(), key=lambda x: x[1], reverse = True))
+
+add_student("张三", 85)
+add_student("李四", 92)
+add_student("王五", 78)
+show_all()
+print(f"平均分：{get_average():.1f}")
+remove_student("王五")
+show_all()
+    
+        
