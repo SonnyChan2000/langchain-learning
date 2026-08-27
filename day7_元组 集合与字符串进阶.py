@@ -75,8 +75,8 @@ print(text.find("Python")) #Python从第6个位置开始 输出6 如果找不到
 print(text.count("l")) #字母l出现的次数
 
 # 判断内容类型
-print("123".isdigit())
-print("abc".isalpha())
+print("123".isdigit())  #判断字符串内是不是1全部是数字
+print("abc".isalpha())  #判断字符串内是不是1全部是字母
 print("1234a".isdigit())
 print("abc1".isalpha())
 
