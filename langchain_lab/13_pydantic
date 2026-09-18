@@ -1,0 +1,35 @@
+import os
+from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import PydanticOutputParser
+from pydantic import BaseModel, Field
+from typing import Literal
+
+load_dotenv()
+
+llm = ChatOpenAI(
+    api_key=os.getenv("ZHIPU_API_KEY"),
+    model="glm-4-flash",
+    base_url="https://open.bigmodel.cn/api/paas/v4",
+)
+
+class 商品(BaseModel):
+    name: str = Field(description="商品名称")
+    price: float = Field(description="价格, 数字")
+    category: Literal["数码", "服装", "食品", "其它"] = Field(description="商品分类")
+
+parser = PydanticOutputParser(pydantic_object=商品)
+
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "你是一个商品信息提取器。严格按照下面的格式要求输出: \n{format_instructions}"),
+    ("user", "提取这个商品并分类: '蚕丝被, 双十一特价399元'")
+])
+
+prompt_with_format = prompt.partial(format_instructions=parser.get_format_instructions())
+
+chain = prompt_with_format | llm | parser
+
+result = chain.invoke({})
+print("解析结果:", result)
+print("商品名: ", result.name, "| 价格: ", result.price, "| 分类: ", result.category)
