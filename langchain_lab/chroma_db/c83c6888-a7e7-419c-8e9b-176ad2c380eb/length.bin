@@ -1,0 +1,1 @@
+invalid type: string "面试话术（Day35 可讲的点）\nQ：在用 LangChain 做 RAG 吗？介绍一下加载文档这块。\nA：RAG 的第一步是文档加载，LangChain 的 Document Loader 负责把我各种格式的数据统一读成标准\n的 Document 对象（正文 + 元信息）。我实际加载过 PDF（按页切，带页码元信息）、CSV（按行，每", expected i64ooleanup4
